@@ -40,3 +40,5 @@ The percentage error between the intended and generated baud rates is:
 
 
 An error of −0.78% is well within acceptable UART tolerance (typically < 1%), ensuring reliable data reception.
+
+Note : both transmitter and receiver (.v) files are not lint free.
