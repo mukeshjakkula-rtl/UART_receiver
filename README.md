@@ -6,7 +6,7 @@ Rxclock = 75Mhz Tperiod = 13.33ns & data_width = 8bits we calculate the error mi
 so according to the 75Mhz clock 75Mhz/16x1156000 = ~4 so we have a sample_tick for 4 clock cycles 
 and we have 16 sample_ticks we only capture at one sample tick we choose the 8th sample_tick to capture the data.
 
-so the actual baudrate is 75Mhz/40 = 18750000.
+so the actual baudrate is 75Mhz/4 = 18750000.
 
 so the error between the intended baudrate and the generated baudrate is:
 
