@@ -1,15 +1,42 @@
-**UART_receiver**
+**UART Receiver**
 
-Designed uart receiver which can capture the data at a speed of (16 x 1156000) symbols per seconds (baud_rate = 18496000) i.e 16x is the oversample rate for receiver.
-Rxclock = 75Mhz Tperiod = 13.33ns & data_width = 8bits we calculate the error missmatch it is of -0.78% for Rx.
+This project implements a UART receiver using 16× oversampling to reliably capture incoming serial data.
 
-so according to the 75Mhz clock 75Mhz/16x1156000 = ~4 so we have a sample_tick for 4 clock cycles 
-and we have 16 sample_ticks we only capture at one sample tick we choose the 8th sample_tick to capture the data.
+The receiver is designed for a target baud rate of 1,156,000 symbols/second, resulting in an effective oversampled rate of:
 
-so the actual baudrate is 75Mhz/4 = 18750000.
+16 × 1,156,000 = 18,496,000 samples/second
 
-so the error between the intended baudrate and the generated baudrate is:
+Design Parameters
 
-                 (18750000 - 18496000)/18496000 = -0.78% (good < 1%)
+RX clock frequency: 75 MHz
+
+Clock period: 13.33 ns
+
+Data width: 8 bits
+
+Oversampling rate: 16×
+
+Sampling Logic
+
+With a 75 MHz RX clock, the sample tick frequency is derived as:
+
+75 MHz / (16 × 1,156,000) ≈ 4
 
 
+This means a sample tick is generated every 4 clock cycles.
+A total of 16 sample ticks are produced per bit period, and the data is sampled at the 8th sample tick, which corresponds to the center of the bit for maximum noise immunity.
+
+Actual Generated Baud Rate
+
+Since the sample tick occurs every 4 clock cycles:
+
+Actual baud rate = 75 MHz / 4 = 18,750,000
+
+Baud Rate Error Analysis
+
+The percentage error between the intended and generated baud rates is:
+
+(18,750,000 − 18,496,000) / 18,496,000 = −0.78%
+
+
+An error of −0.78% is well within acceptable UART tolerance (typically < 1%), ensuring reliable data reception.
